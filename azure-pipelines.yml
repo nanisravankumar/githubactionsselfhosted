@@ -1,0 +1,13 @@
+pool:
+  name: Azure Pipelines
+steps:
+- task: AzureCLI@2
+  displayName: 'Azure CLI '
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise Sravan kumar pulle : spulle001'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: 'az storage blob upload-batch --source . --destination testalt --destination-path . --account-name teststorageaccblob --auth-mode key'
+    addSpnToEnvironment: true
+    useGlobalConfig: true
+    workingDirectory: '.'
