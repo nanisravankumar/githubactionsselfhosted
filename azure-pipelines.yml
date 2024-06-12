@@ -6,7 +6,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)' # Path to the root folder to archive
+    rootFolderOrFile: '$(Build.SourcesDirectory)/.github/workflows/' # Path to the root folder to archive
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/archive.zip'
