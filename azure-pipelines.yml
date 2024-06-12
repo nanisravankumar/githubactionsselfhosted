@@ -20,8 +20,8 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az storage blob upload \
-        --account-name <YourStorageAccountName> \
-        --container-name <YourContainerName> \
+        --account-name teststorageaccblob \
+        --container-name testalt \
         --name archive.zip \
         --file $(Build.ArtifactStagingDirectory)/archive.zip \
         --auth-mode key
