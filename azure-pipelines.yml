@@ -1,13 +1,43 @@
 pool:
-  name: Azure Pipelines
+  vmImage: 'ubuntu-latest'
+
 steps:
+- checkout: self
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)' # Path to the root folder to archive
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/archive.zip'
+    replaceExistingArchive: true
+
 - task: AzureCLI@2
-  displayName: 'Azure CLI '
+  displayName: 'Upload ZIP to Azure Storage'
   inputs:
     azureSubscription: 'Visual Studio Enterprise Sravan kumar pulle : spulle001'
     scriptType: bash
     scriptLocation: inlineScript
-    inlineScript: 'az storage blob upload-batch --source . --destination testalt --destination-path . --account-name teststorageaccblob --auth-mode key'
+    inlineScript: |
+      az storage blob upload \
+        --account-name <YourStorageAccountName> \
+        --container-name <YourContainerName> \
+        --name archive.zip \
+        --file $(Build.ArtifactStagingDirectory)/archive.zip \
+        --auth-mode key
     addSpnToEnvironment: true
-    useGlobalConfig: true
-    workingDirectory: '.'
+
+
+# pool:
+#   name: Azure Pipelines
+# steps:
+# - task: AzureCLI@2
+#   displayName: 'Azure CLI '
+#   inputs:
+#     azureSubscription: 'Visual Studio Enterprise Sravan kumar pulle : spulle001'
+#     scriptType: bash
+#     scriptLocation: inlineScript
+#     inlineScript: 'az storage blob upload-batch --source . --destination testalt --destination-path . --account-name teststorageaccblob --auth-mode key'
+#     addSpnToEnvironment: true
+#     useGlobalConfig: true
+#     workingDirectory: '.'
