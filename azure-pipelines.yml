@@ -24,6 +24,7 @@ steps:
         --container-name testalt \
         --name archive.zip \
         --file $(Build.ArtifactStagingDirectory)/archive.zip \
+        --overwrite true \
         --auth-mode key
     addSpnToEnvironment: true
 
